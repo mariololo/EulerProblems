@@ -5,13 +5,11 @@ Find the sum of all the multiples of 3 or 5 below 1000.
 """
 
 def multiples(below = 1000):
-	numbers = []
+	summ = 0
 	for num in range(3,below):
-		if num % 3 == 0:
-			numbers.append(num)
-		elif num % 5 == 0:
-			numbers.append(num)
-	return numbers
+		if (num % 3 == 0) or (num % 5 == 0):
+			summ += num
+	return summ
 
 if __name__ == '__main__':
 	print(multiples())
