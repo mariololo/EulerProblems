@@ -13,23 +13,23 @@ import math
 def fibonacci_num(n):
 	return int(( ( ( 1 + math.sqrt(5) ) ** n ) - ( ( 1 - math.sqrt(5) ) ** n)) / (2**n * math.sqrt(5)))
 
-def fibonacci_seq(limit):
-
-	sequence = []
-	num = fibonacci_num(0)
-	sequence.append(num)
-	n = 1
+def fibonacci_sum_evens(limit):
+	
+	sum = 0
+	n = 0
 	while True:
 		num = fibonacci_num(n)
 
 		if num < limit:
-			sequence.append(num)
+			if num % 2 == 0:
+				sum += num
 			n += 1
 		else:
-			return sequence
+			return sum
 
 
 
+	
 
 if __name__ == '__main__':
-	print(fibonacci_seq(limit = 4000000))
+	print(fibonacci_sum_evens(limit = 4000000))
