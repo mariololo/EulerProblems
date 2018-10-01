@@ -25,13 +25,14 @@ Find the product of the coefficients, a and b,
 """
 
 import math
-
+from itertools import count, islice
+import time
 
 
 
 def isPrime(a):
 
-	if a == 1:
+	if a <= 1:
 		return False
 	if a == 2:
 		return True
@@ -50,40 +51,49 @@ def isPrime(a):
 
 
 
+def list_Primes(limit = 1000):
+
+	lst = []
+
+	for i in range(limit):
+		if isPrime(i):
+			lst.append(i)
+
+	return lst
 
 
-def coeffMaxPrimes():
+def coeffMaxPrimes(rangea = range(-1000,1000) ,rangeb = range(-1000,1000)):
 
 	max_n_primes = 0
 	max_a = -2000
 	max_b = -2000
 
-	for a in range(-1000,1000):
+
+
+	for a in rangea:
 		print("testing a = " + str(a))
-		for b in range(-1000,1000):
+		for b in rangeb:
 			#print("testing b = " + str(b))
-			n = 1
-			while True:
-				possible_prime = (n**2) + (a * n) + b
-				if (possible_prime <= 1) or (isPrime(possible_prime) == False):
-					if n - 1 > max_n_primes:
-						max_n_primes = n - 1
-						max_a = a
-						max_b = b
-						break
-
+			n = 0
+			while isPrime((n**2) + (a * n) + b):
 				n += 1
+			if n > max_n_primes:
+				max_n_primes = n
+				max_a = a
+				max_b = b
 
-
-	return a,b
-
-
+	return max_a,max_b,max_n_primes
 
 
 
 if __name__  == "__main__":
-	a,b = coeffMaxPrimes()
 
+	start_time = time.time()
+	a,b,n = coeffMaxPrimes(range(-1000,1000), list_Primes(1000))
+
+	print("maximum consecutive primes = " + str(n))
 	print("a = " + str(a))
 	print("b = " + str(b))
 	print("a*b = " + str(a*b))
+
+	print("--- %s seconds ---" % (time.time() - start_time))
